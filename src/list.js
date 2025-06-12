@@ -1,16 +1,23 @@
-import { v4 as uuidv4 } from 'uuid';
+import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 //ACTIONS (BUSINESS LOGICS)
 //CREATE LIST
-export const tasks = ["Learn JS","Learn React","Learn Next","Learn PHP","Learn Laravel"]
+export const tasks = [
+  "Learn JS",
+  "Learn React",
+  "Learn Next",
+  "Learn PHP",
+  "Learn Laravel",
+];
 // let listCounter = 0;
 export const createList = (task) => {
   const listTP = listTemplate.content.cloneNode(true);
-//   console.log(listTP);
+  //   console.log(listTP);
   const list = listTP.querySelector(".list");
-    list.id = "list" + uuidv4(); 
-    // list.id = "list" + listCounter++;
+  list.id = "list" + uuidv4();
+  // list.id = "list" + listCounter++;
   listTP.querySelector(".list-task").innerText = task;
-  
+
   //WHEN ADD NEW TASK SHOW DONE ALL BUTTON
   const allLists = listGroup.querySelectorAll(`.list `);
   const checkedLists = listGroup.querySelectorAll(`.list input:checked`);
@@ -27,18 +34,31 @@ export const createList = (task) => {
 //DELETE LIST
 export const deleteList = (listId) => {
   const currentList = document.querySelector(`#${listId}`);
-  if (window.confirm("Are you sure you want to delete this task?")) {
-    currentList.classList.add("animate__animated", "animate__zoomOut");
-    currentList.addEventListener("animationend", () => {
-      currentList.remove();
-      // updateTaskTotal();
-      // updateDoneTotal();
-      const allLists = listGroup.querySelectorAll(`.list `);
-      if (allLists.length === 0) {
-      deleteAll.classList.add("opacity-50");      
-      } 
-    });
-  }
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+      });
+      currentList.classList.add("animate__animated", "animate__zoomOut");
+      currentList.addEventListener("animationend", () => {
+        currentList.remove();
+        // updateTaskTotal();
+        // updateDoneTotal();
+        const allLists = listGroup.querySelectorAll(`.list `);
+        if (allLists.length === 0) {
+          deleteAll.classList.add("opacity-50");
+        }
+      });
+    }
+  });
 };
 //EDIT LIST
 export const editList = (listId) => {
