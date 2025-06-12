@@ -1,13 +1,14 @@
+import { v4 as uuidv4 } from 'uuid';
 //ACTIONS (BUSINESS LOGICS)
 //CREATE LIST
 export const tasks = ["Learn JS","Learn React","Learn Next","Learn PHP","Learn Laravel"]
-let listCounter = 0;
+// let listCounter = 0;
 export const createList = (task) => {
   const listTP = listTemplate.content.cloneNode(true);
 //   console.log(listTP);
   const list = listTP.querySelector(".list");
-    // list.id = "list" + Date.now(); 
-    list.id = "list" + listCounter++;
+    list.id = "list" + uuidv4(); 
+    // list.id = "list" + listCounter++;
   listTP.querySelector(".list-task").innerText = task;
   
   //WHEN ADD NEW TASK SHOW DONE ALL BUTTON
