@@ -3,11 +3,9 @@ import { v4 as uuidv4 } from "uuid";
 //ACTIONS (BUSINESS LOGICS)
 //CREATE LIST
 export const tasks = [
-  "Learn JS",
-  "Learn React",
-  "Learn Next",
-  "Learn PHP",
-  "Learn Laravel",
+  "Shin Thant Naing",
+  "❤️❤️❤️",
+  "May Thu San Naing",
 ];
 // let listCounter = 0;
 export const createList = (task) => {
